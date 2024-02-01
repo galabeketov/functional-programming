@@ -1,30 +1,25 @@
-import { useState } from "react";
-import "./App.css";
+import { useCallback, useState } from "react";
 
 function App() {
   const [show, setShow] = useState(false);
+  const inputRef = useCallback((input) => {
+    if (input === null) return;
+
+    input.focus();
+  }, []);
 
   return (
-    <div>
-      <h1>Other Content</h1>
-      <button onClick={() => setShow(true)}>Show Message</button>
-      <Alert show={show} onClose={() => setShow(false)}>
-        A sample message to show.
-        <br />
-        Click it to close.
-      </Alert>
-    </div>
+    <>
+      <button
+        onClick={(e) => {
+          setShow(!show);
+        }}
+      >
+        switch
+      </button>
+      {show && <input type="text" ref={inputRef} />}
+    </>
   );
 }
-
-const Alert = ({ children, onClose, show }) => {
-  if (!show) return;
-
-  return (
-    <div className="alert" onClick={onClose}>
-      {children}
-    </div>
-  );
-};
 
 export default App;
