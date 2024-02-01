@@ -1,23 +1,16 @@
-import { useCallback, useState } from "react";
+import { useRef } from "react";
+import "./App.css";
+import { Input } from "./input";
 
 function App() {
-  const [show, setShow] = useState(false);
-  const inputRef = useCallback((input) => {
-    if (input === null) return;
-
-    input.focus();
-  }, []);
+  const inputRef = useRef();
 
   return (
     <>
-      <button
-        onClick={(e) => {
-          setShow(!show);
-        }}
-      >
-        switch
+      <Input ref={inputRef} type="text" />
+      <button className="button" onClick={() => console.log(inputRef.current.value)}>
+        Submit
       </button>
-      {show && <input type="text" ref={inputRef} />}
     </>
   );
 }
